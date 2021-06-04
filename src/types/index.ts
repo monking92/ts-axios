@@ -1,12 +1,22 @@
 type MethodType =
-  "get" | "GET" |
-  "post" | "POST" |
-  "head" | "HEAD" |
-  "put" | "PUT" |
-  "options" | "OPTIONS"
+  | 'get'
+  | 'GET'
+  | 'post'
+  | 'POST'
+  | 'head'
+  | 'HEAD'
+  | 'put'
+  | 'PUT'
+  | 'patch'
+  | 'PATCH'
+  | 'delete'
+  | 'DELETE'
+  | 'options'
+  | 'OPTIONS'
 
-export interface IAxiosConfig {
-  url: string,
-  method?: MethodType,
+export interface IAxiosRequestConfig {
+  url: string
+  method?: MethodType
   data?: any
+  params: object
 }

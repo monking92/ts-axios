@@ -1,12 +1,12 @@
-import { IAxiosConfig } from './types'
+import { IAxiosRequestConfig } from './types'
 
-export default function axios(config: IAxiosConfig):void {
+export default function axios(config: IAxiosRequestConfig): void {
   const { url, method = 'get', data = null } = config
 
-  const xhr = new XMLHttpRequest
+  const xhr = new XMLHttpRequest()
 }
 
-axios({
-  url: '',
-  method: "get"
-})
+// axios({
+//   url: '',
+//   method: "get"
+// })
