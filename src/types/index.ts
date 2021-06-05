@@ -18,5 +18,5 @@ export interface IAxiosRequestConfig {
   url: string
   method?: MethodType
   data?: any
-  params: object
+  params?: object
 }

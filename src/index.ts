@@ -1,12 +1,10 @@
 import { IAxiosRequestConfig } from './types'
 
-export default function axios(config: IAxiosRequestConfig): void {
-  const { url, method = 'get', data = null } = config
+import xhr from './xhr'
 
-  const xhr = new XMLHttpRequest()
+export default function axios(config: IAxiosRequestConfig): any {
+  console.log('axios request.......')
+  return new Promise((resolve, reject) => {
+    xhr(config)
+  })
 }
-
-// axios({
-//   url: '',
-//   method: "get"
-// })
