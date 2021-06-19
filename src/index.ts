@@ -2,6 +2,7 @@ import { IAxiosRequestConfig } from './types'
 
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
+import processHeaders from './helpers/headers'
 import { isPlainObject } from './helpers/utils'
 
 export default function axios(config: IAxiosRequestConfig): any {
@@ -14,6 +15,7 @@ export default function axios(config: IAxiosRequestConfig): any {
 
 function processConfig(config: IAxiosRequestConfig): void {
   config.url = transformURL(config)
+  config.headers = processHeaders(config.headers) || {}
   config.data = transformRequestData(config)
 }
 

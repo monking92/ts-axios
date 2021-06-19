@@ -66,6 +66,23 @@ import axios from '../../src/index'
 //   }
 // })
 
+
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: {
+//     foo: 'bar',
+//     bar: 'baz'
+//   }
+// })
+
+// axios({
+//   method: 'post',
+//   url: '/base/buffer',
+//   data: new Int32Array([99990, 92])
+// })
+
+
 axios({
   method: 'post',
   url: '/base/post',
@@ -77,6 +94,22 @@ axios({
 
 axios({
   method: 'post',
-  url: '/base/buffer',
-  data: new Int32Array([99990, 92])
+  url: '/base/post',
+  headers: {
+    'content-type': 'application/json',
+    'Accept': 'application/json, text/plain, */*'
+  },
+  data: {
+    foo: 'bar',
+    bar: 'baz'
+  }
+})
+
+const paramsString = 'q=URLUtils.searchParams&topic=api'
+const searchParams = new URLSearchParams(paramsString)
+
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: searchParams
 })
