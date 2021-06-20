@@ -15,13 +15,18 @@ export default function axios(config: IAxiosRequestConfig): any {
 
 function processConfig(config: IAxiosRequestConfig): void {
   config.url = transformURL(config)
-  config.headers = processHeaders(config.headers) || {}
+  config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
 }
 
 function transformURL(config: IAxiosRequestConfig): string {
   const { url, params } = config
   return buildURL(url, params)
+}
+
+function transformHeaders (config: IAxiosRequestConfig): any {
+  const { headers, data } = config
+  return processHeaders(headers, data)
 }
 
 function transformRequestData(config: IAxiosRequestConfig): any {

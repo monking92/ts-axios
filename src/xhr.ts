@@ -1,17 +1,20 @@
 import { IAxiosRequestConfig } from './types'
 
 export default function xhr(config: IAxiosRequestConfig): void {
-  const method = config.method || 'GET'
-  let data = config.data
+  const { url, method = 'GET', data = null, headers } = config
+
   if (method.toUpperCase() === 'GET') {
     data = null
   }
 
   const xhr = new XMLHttpRequest()
-  xhr.open(method, config.url)
+  xhr.open(method, url)
 
-  for (const key of config.headers) {
-    xhr.setRequestHeader(key, config.headers[key])
+  for (const key in headers) {
+    // "noImplicitAny": true in tsconfig
+    xhr.setRequestHeader(key, headers[key])
+    // xhr.setRequestHeader(key, headers[key as keyof typeof headers])
   }
+
   xhr.send(data)
 }
