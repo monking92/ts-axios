@@ -7,16 +7,18 @@ function normalizedHeaderKey(key: string): string {
 }
 
 export default function processHeaders(headers: any, data: any): any {
-  if (!headers) return {}
+  for (const key in headers) {
+    const nKey = normalizedHeaderKey(key)
+    headers[nKey] = headers[key]
 
-  for (const key of headers) {
-    headers[normalizedHeaderKey(key)] = headers[key]
-    delete headers[key]
+    if (key !== nKey) {
+      delete headers[key]
+    }
   }
 
-  if (isPlainObject(data) && !headers.hasOwnProperty('Content-Type')) {
+  if (isPlainObject(data) && !headers['Content-Type']) {
     headers['Content-Type'] = 'application/json;charset=UTF-8'
   }
-  debugger
+
   return headers
 }

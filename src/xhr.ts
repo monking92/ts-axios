@@ -1,7 +1,7 @@
 import { IAxiosRequestConfig } from './types'
 
 export default function xhr(config: IAxiosRequestConfig): void {
-  const { url, method = 'GET', data = null, headers } = config
+  let { url, method = 'GET', data = null, headers } = config
 
   if (method.toUpperCase() === 'GET') {
     data = null
@@ -12,6 +12,7 @@ export default function xhr(config: IAxiosRequestConfig): void {
 
   for (const key in headers) {
     // "noImplicitAny": true in tsconfig
+    // "suppressImplicitAnyIndexErrors": true
     xhr.setRequestHeader(key, headers[key])
     // xhr.setRequestHeader(key, headers[key as keyof typeof headers])
   }

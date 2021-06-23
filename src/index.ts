@@ -25,7 +25,7 @@ function transformURL(config: IAxiosRequestConfig): string {
 }
 
 function transformHeaders (config: IAxiosRequestConfig): any {
-  const { headers, data } = config
+  const { headers = {}, data } = config
   return processHeaders(headers, data)
 }
 
