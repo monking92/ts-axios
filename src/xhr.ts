@@ -8,7 +8,7 @@ export default function xhr(config: IAxiosRequestConfig): void {
   }
 
   const xhr = new XMLHttpRequest()
-  xhr.open(method, url)
+  xhr.open(method, url, true)
 
   for (const key in headers) {
     // "noImplicitAny": true in tsconfig
