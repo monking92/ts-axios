@@ -17,6 +17,40 @@
 ## run test
 express 运行 demo, webpack作为构建工具
 
+## request
+### get 请求参数
+- 值为数组
+```typescript
+axios({
+  method: 'get',
+  url: '/base/get',
+  params: {
+    foo: ['bar', 'baz']
+  }
+})
+```
+转化为 `base/get?foo[]=bar&foo[]=baz`
+
+- 值为Date
+```typescript
+axios({
+  method: 'get',
+  url: '/base/get',
+  params: {
+    date: new Date()
+  }
+})
+```
+转化为 `/base/get?date=2021-11-27T05:55:39.030Z`, date后是`date.toISOString()`结果
+
+- 特殊字符串
+url中允许出现不被 encode 的字符 `@` `:` `$` `,` 空格（转化成`+`）` ` `[` `]`
+
+- 空值忽略 `null` `undefined`
+
+- 丢弃url中的哈希标记
+
+- 保留url中已有参数
 
 ## response
 
