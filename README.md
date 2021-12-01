@@ -52,6 +52,30 @@ url中允许出现不被 encode 的字符 `@` `:` `$` `,` 空格（转化成`+`�
 
 - 保留url中已有参数
 
+### 请求 body 数据
+- 请求`body`为`Object`则转化为`JSON`字符串
+```typescript
+const xhr = new XMLHttpRequest()
+// 初始化一个请求
+// param: method, url, async, user, password
+xhr.open(mehtod, url, true)
+// 发送请求 异步（默认）-则请求发送后立即返回 同步-则收到响应后才返回
+// GET HEAD请求 则应将参数设置为 null
+// data 类型：
+// 1. `Document` 发送前被序列化
+// 2. `XMLHttpRequestBodyInit` 可以是 `Blob` `BufferSource` `FormData` `URLSearchParams` `USVString`(js 中映射`String`)
+// 3. `null`
+// body 
+xhr.send(body)
+```
+
+### 请求 header
+- 请求data 转换为JSON字符串时，需要给`headers`设置正确的 `Content-Type`(`"content-type": "application/json;charset=utf-8"`)
+
+`XMLHttpRequest.setRequestHeader()`设置HTTP请求头。该方法必须在`open()`方法和`send()`之间调用
+
+
+
 ## response
 
 - `data` 响应数据

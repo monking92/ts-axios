@@ -12,8 +12,6 @@ function encode(str: string): string {
     .replace(/%5D/gi, ']')
 }
 
-function getParamStr() {}
-
 export function buildURL(url: string, params?: any): string {
   if (!params) return url
 

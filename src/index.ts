@@ -3,7 +3,7 @@ import { IAxiosRequestConfig } from './types'
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
 import processHeaders from './helpers/headers'
-import { isPlainObject } from './helpers/utils'
+import { transformRequest } from './helpers/data'
 
 export default function axios(config: IAxiosRequestConfig): any {
   console.log('axios request.......')
@@ -24,7 +24,7 @@ function transformURL(config: IAxiosRequestConfig): string {
   return buildURL(url, params)
 }
 
-function transformHeaders (config: IAxiosRequestConfig): any {
+function transformHeaders(config: IAxiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
 }
@@ -36,9 +36,5 @@ function transformRequestData(config: IAxiosRequestConfig): any {
     return null
   }
 
-  if (isPlainObject(data)) {
-    return JSON.stringify(data)
-  }
-
-  return data
+  return transformRequest(data)
 }

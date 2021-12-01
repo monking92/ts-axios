@@ -6,6 +6,8 @@ function normalizedHeaderKey(key: string): string {
   })
 }
 
+// application/json;charset=UTF-8
+// application/x-www-form-urlencoded;charset=UTF-8
 export default function processHeaders(headers: any, data: any): any {
   for (const key in headers) {
     const nKey = normalizedHeaderKey(key)
