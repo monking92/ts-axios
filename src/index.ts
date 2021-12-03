@@ -1,16 +1,13 @@
-import { IAxiosRequestConfig } from './types'
+import { IAxiosRequestConfig, IAxiosPromise } from './types'
 
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
 import processHeaders from './helpers/headers'
 import { transformRequest } from './helpers/data'
 
-export default function axios(config: IAxiosRequestConfig): any {
-  console.log('axios request.......')
-  return new Promise((resolve, reject) => {
-    processConfig(config)
-    xhr(config)
-  })
+export default function axios(config: IAxiosRequestConfig): IAxiosPromise {
+  processConfig(config)
+  return xhr(config)
 }
 
 function processConfig(config: IAxiosRequestConfig): void {

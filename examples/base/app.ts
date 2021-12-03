@@ -117,3 +117,30 @@ axios({
   url: '/base/post',
   data: searchParams
 })
+
+
+////////////////////////
+// 4.axios返回promise对象 可以取到数据
+
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: {
+    foo: 'bar',
+    bar: 'baz'
+  }
+}).then(res => {
+  console.log('1: ', res)
+})
+
+axios({
+  method: 'post',
+  url: '/base/post',
+  responseType: 'json',
+  data: {
+    foo: 'bar',
+    bar: 'baz'
+  }
+}).then(res => {
+  console.log('2: ', res)
+})
