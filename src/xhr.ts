@@ -1,4 +1,5 @@
 import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from './types'
+import { parseResponseHeaders } from './helpers/headers'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise(resolve => {
@@ -13,7 +14,7 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         const responseData = responseType !== 'text' ? xhr.response : xhr.responseText
-        const responseHeaders = xhr.getAllResponseHeaders()
+        const responseHeaders = parseResponseHeaders(xhr.getAllResponseHeaders())
 
         const response: IAxiosResponse = {
           data: responseData,

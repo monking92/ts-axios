@@ -8,7 +8,7 @@ function normalizedHeaderKey(key: string): string {
 
 // application/json;charset=UTF-8
 // application/x-www-form-urlencoded;charset=UTF-8
-export default function processHeaders(headers: any, data: any): any {
+export function processHeaders(headers: any, data: any): any {
   for (const key in headers) {
     const nKey = normalizedHeaderKey(key)
     headers[nKey] = headers[key]
@@ -23,4 +23,23 @@ export default function processHeaders(headers: any, data: any): any {
   }
 
   return headers
+}
+
+// 解析响应头
+export function parseResponseHeaders(header: string): any {
+  if (header) {
+    const parsedHeader = Object.create(null)
+
+    const headerList: string[] = header.split('\r\n')
+    for (const headerItem of headerList) {
+      if (headerItem.trim()) {
+        const [key, value] = headerItem.trim().split(': ')
+        parsedHeader[key] = value
+      }
+    }
+
+    return parsedHeader
+  }
+
+  return header
 }
