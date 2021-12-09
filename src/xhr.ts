@@ -2,16 +2,21 @@ import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from './types'
 import { parseResponseHeaders } from './helpers/headers'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
-  return new Promise(resolve => {
-    let { url, method = 'GET', data = null, headers, responseType } = config
+  return new Promise((resolve, reject) => {
+    let { url, method = 'GET', data = null, headers, responseType, timeout = 0 } = config
 
     if (method.toUpperCase() === 'GET') {
       data = null
     }
 
-    const xhr = new XMLHttpRequest()
+    let xhr: any = new XMLHttpRequest()
 
     xhr.onreadystatechange = function() {
+      // network errors or timeout status is 0
+      if (xhr.status === 0) {
+        return
+      }
+
       if (xhr.readyState === XMLHttpRequest.DONE) {
         const responseData = responseType !== 'text' ? xhr.response : xhr.responseText
         const responseHeaders = parseResponseHeaders(xhr.getAllResponseHeaders())
@@ -25,9 +30,28 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
           request: xhr
         }
 
-        resolve(response)
+        // readystate handler is calling before onerror or ontimeout handlers,
+        // so we should call handleResponse on the next 'tick'
+        setTimeout(() => handleResponse(resolve, reject, response))
       }
     }
+
+    xhr.timeout = timeout
+
+    // network errors
+    xhr.addEventListener('error', () => {
+      reject(new Error(`Network Error`))
+
+      // clean xhr
+      xhr = null
+    })
+
+    xhr.addEventListener('timeout', () => {
+      reject(new Error(`timeout of ${timeout} ms exceeded`))
+
+      // clean xhr
+      xhr = null
+    })
 
     // 初始化一个请求
     // param: method, url, async, user, password
@@ -57,4 +81,16 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
     // 3. `null`
     xhr.send(data)
   })
+}
+
+function handleResponse(
+  resolve: (value: IAxiosResponse) => void,
+  reject: (reason: string) => void,
+  response: IAxiosResponse
+): void {
+  if (response.status >= 200 && response.status < 300) {
+    resolve(response)
+  } else {
+    reject(`Request failed with status code ${response.status}`)
+  }
 }
