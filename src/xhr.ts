@@ -1,5 +1,6 @@
-import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from './types'
+import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse, IAxiosError } from './types'
 import { parseResponseHeaders } from './helpers/headers'
+import createError from './helpers/error'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
@@ -32,7 +33,7 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
 
         // readystate handler is calling before onerror or ontimeout handlers,
         // so we should call handleResponse on the next 'tick'
-        setTimeout(() => handleResponse(resolve, reject, response))
+        setTimeout(() => handleResponse(resolve, reject, config, xhr, response))
       }
     }
 
@@ -40,14 +41,14 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
 
     // network errors
     xhr.addEventListener('error', () => {
-      reject(new Error(`Network Error`))
+      reject(createError(`Network Error`, config, null, xhr))
 
       // clean xhr
       xhr = null
     })
 
     xhr.addEventListener('timeout', () => {
-      reject(new Error(`timeout of ${timeout} ms exceeded`))
+      reject(createError(`timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', xhr))
 
       // clean xhr
       xhr = null
@@ -85,12 +86,22 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
 
 function handleResponse(
   resolve: (value: IAxiosResponse) => void,
-  reject: (reason: string) => void,
+  reject: (reason: IAxiosError) => void,
+  config: IAxiosRequestConfig,
+  xhr: XMLHttpRequest,
   response: IAxiosResponse
 ): void {
   if (response.status >= 200 && response.status < 300) {
     resolve(response)
   } else {
-    reject(`Request failed with status code ${response.status}`)
+    reject(
+      createError(
+        `Request failed with status code ${response.status}` as string,
+        config,
+        null,
+        xhr,
+        response
+      )
+    )
   }
 }

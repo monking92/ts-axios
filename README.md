@@ -130,3 +130,10 @@ x-powered-by: Express\r\n
 - 请求错误时（网络错误）触发 `error`事件
 - 超时错误 `timeout` 事件
 - 非200状态码
+
+### `AxiosError` 类
+- `message` 错误文本信息
+- `config` 请求对象配置
+- `code` 错误代码
+- `request` `XMLHttpRequest`对象实例
+- `response` 响应对象

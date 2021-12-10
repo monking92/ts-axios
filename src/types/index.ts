@@ -36,3 +36,10 @@ export interface IAxiosResponse {
 }
 
 export interface IAxiosPromise extends Promise<IAxiosResponse> {}
+
+export interface IAxiosError extends Error {
+  config: IAxiosRequestConfig
+  code?: string | null
+  request?: XMLHttpRequest
+  response?: IAxiosResponse
+}
