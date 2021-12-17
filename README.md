@@ -137,3 +137,19 @@ x-powered-by: Express\r\n
 - `code` 错误代码
 - `request` `XMLHttpRequest`对象实例
 - `response` 响应对象
+
+
+## 接口扩展
+
+- `axios.request(config)`
+- `axios.get(url[, config])`
+- `axios.delete(url[, config])`
+- `axios.head(url[, config])`
+- `axios.options(url[, config])`
+- `axios.post(url[, data[, config]])`
+- `axios.put(url[, data[, config]])`
+- `axios.patch(url[, data[, config]])`
+
+### `axios`混合对象
+
+### `axios(url, config)` `axios(config)` 重载

@@ -13,3 +13,11 @@ export function isPlainObject(val: any): val is Object {
 export function isDate(val: any): val is Date {
   return Object.prototype.toString.call(val) === '[object Date]'
 }
+
+export function extend<T, U>(target: T, source: U): T & U {
+  for (const key in source) {
+    ;(target as T & U)[key] = (source as any)[key]
+  }
+
+  return target as T & U
+}
