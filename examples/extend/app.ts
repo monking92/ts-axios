@@ -53,3 +53,21 @@ axios.patch('/extend/patch', {
 }).then(res => {
   console.log('patch: ', res)
 })
+
+
+// axios 重载
+axios({
+  method: 'post',
+  url: '/extend/post',
+  data: {
+    msg: 'overload axios 1 params'
+  }
+})
+
+axios({
+  method: 'post',
+  url: '/extend/post',
+  data: {
+    msg: 'overload axios 2 params'
+  }
+})

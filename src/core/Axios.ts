@@ -2,7 +2,12 @@ import { MethodType, IAxiosRequestConfig, IAxiosPromise } from '../types'
 import dispatchRequest from './dispatchRequest'
 
 export default class Axios {
-  request(config: IAxiosRequestConfig): IAxiosPromise {
+  request(url: any, config: IAxiosRequestConfig): IAxiosPromise {
+    if (typeof url === 'string') {
+      config.url = url
+    } else {
+      config = url
+    }
     return dispatchRequest(config)
   }
 

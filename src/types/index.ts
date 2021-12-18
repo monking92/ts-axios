@@ -64,4 +64,6 @@ export interface IAxios {
 // 接口描述函数类型
 export interface IAxiosInstance extends IAxios {
   (config: IAxiosRequestConfig): IAxiosPromise
+
+  (url: string, config?: IAxiosRequestConfig): IAxiosPromise
 }
