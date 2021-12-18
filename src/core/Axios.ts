@@ -1,4 +1,4 @@
-import { IAxiosRequestConfig, IAxiosPromise } from '../types'
+import { MethodType, IAxiosRequestConfig, IAxiosPromise } from '../types'
 import dispatchRequest from './dispatchRequest'
 
 export default class Axios {
@@ -31,10 +31,11 @@ export default class Axios {
   }
 
   patch(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise {
-    return this._requestMethodWithData('patch', url, data, config)
+    // PATCH is sensitive
+    return this._requestMethodWithData('PATCH', url, data, config)
   }
 
-  _requestMethod(method: string, url: string, config?: IAxiosRequestConfig): IAxiosPromise {
+  _requestMethod(method: MethodType, url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this.request(
       Object.assign(config || {}, {
         method,
@@ -44,7 +45,7 @@ export default class Axios {
   }
 
   _requestMethodWithData(
-    method: string,
+    method: MethodType,
     url: string,
     data?: any,
     config?: IAxiosRequestConfig
