@@ -2,7 +2,7 @@ import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse, IAxiosError } from 
 import { parseResponseHeaders } from '../helpers/headers'
 import createError from '../helpers/error'
 
-export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
+export default function xhr<T>(config: IAxiosRequestConfig): IAxiosPromise<T> {
   return new Promise((resolve, reject) => {
     let { url, method = 'GET', data = null, headers, responseType, timeout = 0 } = config
 
@@ -22,8 +22,8 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
         const responseData = responseType !== 'text' ? xhr.response : xhr.responseText
         const responseHeaders = parseResponseHeaders(xhr.getAllResponseHeaders())
 
-        const response: IAxiosResponse = {
-          data: responseData,
+        const response: IAxiosResponse<T> = {
+          data: <T>responseData,
           status: xhr.status,
           statusText: xhr.statusText,
           headers: responseHeaders,
@@ -33,7 +33,7 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
 
         // readystate handler is calling before onerror or ontimeout handlers,
         // so we should call handleResponse on the next 'tick'
-        setTimeout(() => handleResponse(resolve, reject, config, xhr, response))
+        setTimeout(() => handleResponse<T>(resolve, reject, config, xhr, response))
       }
     }
 
@@ -84,12 +84,12 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   })
 }
 
-function handleResponse(
-  resolve: (value: IAxiosResponse) => void,
+function handleResponse<T>(
+  resolve: (value: IAxiosResponse<T>) => void,
   reject: (reason: IAxiosError) => void,
   config: IAxiosRequestConfig,
   xhr: XMLHttpRequest,
-  response: IAxiosResponse
+  response: IAxiosResponse<T>
 ): void {
   if (response.status >= 200 && response.status < 300) {
     resolve(response)

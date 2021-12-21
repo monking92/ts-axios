@@ -153,3 +153,5 @@ x-powered-by: Express\r\n
 ### `axios`混合对象
 
 ### `axios(url, config)` `axios(config)` 重载
+
+### `response.data` 支持泛型

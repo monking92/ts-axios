@@ -5,9 +5,9 @@ import { buildURL } from '../helpers/url'
 import { processHeaders } from '../helpers/headers'
 import { transformRequest, transformResponse } from '../helpers/data'
 
-export default function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
+export default function dispatchRequest<T>(config: IAxiosRequestConfig): IAxiosPromise<T> {
   processConfig(config)
-  return xhr(config).then(res => {
+  return xhr<T>(config).then((res: IAxiosResponse<T>) => {
     return transformResponseData(res)
   })
 }
@@ -38,7 +38,7 @@ function transformRequestData(config: IAxiosRequestConfig): any {
   return transformRequest(data)
 }
 
-function transformResponseData(res: IAxiosResponse): IAxiosResponse {
+function transformResponseData<T>(res: IAxiosResponse<T>): IAxiosResponse<T> {
   res.data = transformResponse(res.data)
 
   return res
