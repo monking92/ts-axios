@@ -1,18 +1,18 @@
 import { IAxiosRequestConfig, IAxiosResponse } from '../types'
 
-class AxiosError<T> extends Error {
+class AxiosError extends Error {
   // message: string
   config: IAxiosRequestConfig
   code?: string | null
   request?: XMLHttpRequest
-  response?: IAxiosResponse<T>
+  response?: IAxiosResponse
 
   constructor(
     message: string,
     config: IAxiosRequestConfig,
     code?: string | null,
     request?: XMLHttpRequest,
-    response?: IAxiosResponse<T>
+    response?: IAxiosResponse
   ) {
     super(message)
     // this.message = message
@@ -23,13 +23,13 @@ class AxiosError<T> extends Error {
   }
 }
 
-export default function createError<T>(
+export default function createError(
   message: string,
   config: IAxiosRequestConfig,
   code?: string | null,
   request?: XMLHttpRequest,
-  response?: IAxiosResponse<T>
-): AxiosError<T> {
-  const axiosError = new AxiosError<T>(message, config, code, request, response)
+  response?: IAxiosResponse
+): AxiosError {
+  const axiosError = new AxiosError(message, config, code, request, response)
   return axiosError
 }

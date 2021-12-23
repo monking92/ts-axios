@@ -25,7 +25,7 @@ export interface IAxiosRequestConfig {
   timeout?: number
 }
 
-export interface IAxiosResponse<T> {
+export interface IAxiosResponse<T=any> {
   data: T
   status: number
   statusText: string
@@ -34,13 +34,13 @@ export interface IAxiosResponse<T> {
   request: XMLHttpRequest
 }
 
-export interface IAxiosPromise<T> extends Promise<IAxiosResponse<T>> {}
+export interface IAxiosPromise<T=any> extends Promise<IAxiosResponse<T>> {}
 
 export interface IAxiosError extends Error {
   config: IAxiosRequestConfig
   code?: string | null
   request?: XMLHttpRequest
-  // response?: IAxiosResponse
+  response?: IAxiosResponse
 }
 
 export interface IAxios {

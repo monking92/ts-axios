@@ -2,7 +2,7 @@ import { MethodType, IAxiosRequestConfig, IAxiosPromise } from '../types'
 import dispatchRequest from './dispatchRequest'
 
 export default class Axios {
-  request<T>(url: any, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  request(url: any, config?: IAxiosRequestConfig): IAxiosPromise {
     if (typeof url === 'string') {
       if (!config) config = {}
       config.url = url
@@ -12,36 +12,36 @@ export default class Axios {
     return dispatchRequest(config!)
   }
 
-  get<T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  get(url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethod('get', url, config)
   }
 
-  delete<T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  delete(url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethod('delete', url, config)
   }
 
-  head<T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  head(url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethod('head', url, config)
   }
 
-  options<T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  options(url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethod('options', url, config)
   }
 
-  post<T>(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  post(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethodWithData('post', url, data, config)
   }
 
-  put<T>(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  put(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethodWithData('put', url, data, config)
   }
 
-  patch<T>(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  patch(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise {
     // PATCH is sensitive
     return this._requestMethodWithData('PATCH', url, data, config)
   }
 
-  _requestMethod<T>(method: MethodType, url: string, config?: IAxiosRequestConfig): IAxiosPromise<T> {
+  _requestMethod(method: MethodType, url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this.request(
       Object.assign(config || {}, {
         method,
@@ -50,7 +50,7 @@ export default class Axios {
     )
   }
 
-  _requestMethodWithData<T>(method: MethodType, url: string, data?: any, config?: IAxiosRequestConfig ): IAxiosPromise<T> {
+  _requestMethodWithData(method: MethodType, url: string, data?: any, config?: IAxiosRequestConfig ): IAxiosPromise {
     return this.request(
       Object.assign(config || {}, {
         method,
