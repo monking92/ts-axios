@@ -71,3 +71,23 @@ axios({
     msg: 'overload axios 2 params'
   }
 })
+
+// response.data 支持泛型
+interface IResponseData<T> {
+  code: number,
+  msg: string,
+  data: T
+}
+
+interface IMobile {
+  wp: string
+  ios: string
+  android: string
+}
+
+axios.get<IResponseData<IMobile>>('/extend/mobile')
+  .then(res => {
+    console.log(res.data.data.wp)
+    console.log(res.data.data.ios)
+    console.log(res.data.data.android)
+  })

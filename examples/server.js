@@ -108,6 +108,19 @@ function registExtendRouter() {
   router.patch('/extend/patch', function(req, res) {
     res.json(req.body)
   })
+
+
+  router.get('/extend/mobile', function(req, res) {
+    res.json({
+      code: 1,
+      msg: 'success',
+      data: {
+        wp: 'Lumia 950XL',
+        ios: 'IPhone XSMax',
+        android: 'Vivo X50Pro'
+      }
+    })
+  })
 }
 
 
