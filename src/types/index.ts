@@ -59,6 +59,11 @@ export interface IAxios {
   put<T>(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T>
 
   patch<T>(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T>
+
+  interceptors: {
+    request: IAxiosInterceptorManager<IAxiosRequestConfig>,
+    response: IAxiosInterceptorManager<IAxiosResponse>
+  }
 }
 
 // 接口描述函数类型
@@ -66,4 +71,17 @@ export interface IAxiosInstance extends IAxios {
   <T>(config: IAxiosRequestConfig): IAxiosPromise<T>
 
   <T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+}
+
+export interface IAxiosInterceptorManager<T> {
+  use(fulfilled: IFulfilledFn<T>, rejected: IRejectedFn): number
+  eject(interceptorId: number): void
+}
+
+export interface IFulfilledFn<T> {
+  (data: T): T | Promise<T>
+}
+
+export interface IRejectedFn {
+  (reason: any): any
 }
