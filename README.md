@@ -157,4 +157,4 @@ x-powered-by: Express\r\n
 ### `response.data` 支持泛型
 
 
-## 拦截器
+## `Promise`实现链式拦截器

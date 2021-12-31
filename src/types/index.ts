@@ -44,6 +44,11 @@ export interface IAxiosError extends Error {
 }
 
 export interface IAxios {
+  interceptors: {
+    request: IAxiosInterceptorManager<IAxiosRequestConfig>,
+    response: IAxiosInterceptorManager<IAxiosResponse>
+  }
+
   request<T>(config: IAxiosRequestConfig): IAxiosPromise<T>
 
   get<T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
@@ -60,10 +65,6 @@ export interface IAxios {
 
   patch<T>(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T>
 
-  interceptors: {
-    request: IAxiosInterceptorManager<IAxiosRequestConfig>,
-    response: IAxiosInterceptorManager<IAxiosResponse>
-  }
 }
 
 // 接口描述函数类型
@@ -74,7 +75,7 @@ export interface IAxiosInstance extends IAxios {
 }
 
 export interface IAxiosInterceptorManager<T> {
-  use(fulfilled: IFulfilledFn<T>, rejected: IRejectedFn): number
+  use(fulfilled: IFulfilledFn<T>, rejected?: IRejectedFn): number
   eject(interceptorId: number): void
 }
 

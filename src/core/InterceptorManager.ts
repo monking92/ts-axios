@@ -2,7 +2,7 @@ import { IAxiosInterceptorManager, IFulfilledFn, IRejectedFn } from '../types'
 
 interface IInterceptor<T> {
   fulfilled: IFulfilledFn<T>,
-  rejected: IRejectedFn
+  rejected?: IRejectedFn
 }
 
 export default class InterceptorManager<T> {
@@ -12,7 +12,7 @@ export default class InterceptorManager<T> {
     this.interceptors = []
   }
 
-  use(fulfilled: IFulfilledFn<T>, rejected: IRejectedFn): number {
+  use(fulfilled: IFulfilledFn<T>, rejected?: IRejectedFn): number {
     this.interceptors.push({
       fulfilled,
       rejected
@@ -25,5 +25,13 @@ export default class InterceptorManager<T> {
     if (this.interceptors[interceptorId]) {
       this.interceptors[interceptorId] = null
     }
+  }
+
+  each(cb: (fn: IInterceptor<T>) => void): void {
+    this.interceptors.forEach(i => {
+      if (i !== null) {
+        cb(i)
+      }
+    })
   }
 }

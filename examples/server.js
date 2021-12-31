@@ -30,6 +30,7 @@ registSimpleRouter()
 registBaseRouter()
 registErrorRouter()
 registExtendRouter()
+registInterceptor()
 
 function registSimpleRouter() {
   router.get('/simple/get', function(req, res) {
@@ -118,6 +119,18 @@ function registExtendRouter() {
         wp: 'Lumia 950XL',
         ios: 'IPhone XSMax',
         android: 'Vivo X50Pro'
+      }
+    })
+  })
+}
+
+function registInterceptor() {
+  router.post('/interceptor/post', function(req, res) {
+    res.json({
+      code: 1,
+      msg: 'success',
+      data: {
+        bar: '0'
       }
     })
   })
