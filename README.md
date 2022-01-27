@@ -44,13 +44,17 @@ axios({
 转化为 `/base/get?date=2021-11-27T05:55:39.030Z`, date后是`date.toISOString()`结果
 
 - 特殊字符串
-url中允许出现不被 encode 的字符 `@` `:` `$` `,` 空格（转化成`+`）` ` `[` `]`
+*url中允许出现不被 encode 的字符 `@` `:` `$` `,` `空格（转化成+）` `[` `]`*
 
 - 空值忽略 `null` `undefined`
 
 - 丢弃url中的哈希标记
 
 - 保留url中已有参数
+
+> `encodeURI`: 不会编码 `ASCII字母` `数字` `~` `!` `@` `#` `$` `&` `*` `(` `)` `=` `:` `/` `,` `;` `?` `+` `'`
+
+> `encodeURIComponent`: 不会编码 `ASCII字母` `数字` `~` `!` `*` `(` `)` `'`
 
 ### 请求 body 数据
 - 请求`body`为`Object`则转化为`JSON`字符串
@@ -59,6 +63,7 @@ const xhr = new XMLHttpRequest()
 // 初始化一个请求
 // param: method, url, async, user, password
 xhr.open(mehtod, url, true)
+
 // 发送请求 异步（默认）-则请求发送后立即返回 同步-则收到响应后才返回
 // GET HEAD请求 则应将参数设置为 null
 // data 类型：
@@ -74,7 +79,7 @@ xhr.send(body)
 
 `XMLHttpRequest.setRequestHeader()`设置HTTP请求头。该方法必须在`open()`方法和`send()`之间调用
 
-
+---
 
 ## response
 
@@ -90,11 +95,11 @@ xhr.send(body)
 > 它还允许更改响应类型。如果将`responseType`设为空字符串，则会使用`text`作为默认值
 > 有如下值：
   - `''` 空字符串与默认类型`text`相同
-  - `arrayBuffer`
-  - `blob`
-  - `document`
+  - `arrayBuffer` *包含二进制数据的 JavaScript `ArrayBuffer`*
+  - `blob` *包含二进制数据的 `Blob` 对象*
+  - `document` *是一个 `HTML Document` 或 `XML XMLDocument`，根据接收到的数据的`MIME`类型而定*
   - `json`
-  - `text`
+  - `text` *`DOMString`对象中的文本*
 
 > responseType 应确保服务器发送的相应与该格式兼容，否则`response`的值将为`null` 在`open()`与`send()`之间调用
 
@@ -158,3 +163,6 @@ x-powered-by: Express\r\n
 
 
 ## `Promise`实现链式拦截器
+
+
+## 策略模式合并配置
