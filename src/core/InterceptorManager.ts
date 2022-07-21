@@ -1,11 +1,11 @@
 import { IAxiosInterceptorManager, IFulfilledFn, IRejectedFn } from '../types'
 
 interface IInterceptor<T> {
-  fulfilled: IFulfilledFn<T>,
+  fulfilled: IFulfilledFn<T>
   rejected?: IRejectedFn
 }
 
-export default class InterceptorManager<T> {
+export default class InterceptorManager<T> implements IAxiosInterceptorManager<T> {
   private interceptors: (IInterceptor<T> | null)[]
 
   constructor() {

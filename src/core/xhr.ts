@@ -6,10 +6,6 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
     let { url, method = 'GET', data = null, headers, responseType, timeout = 0 } = config
 
-    if (method.toUpperCase() === 'GET') {
-      data = null
-    }
-
     let xhr: any = new XMLHttpRequest()
 
     xhr.onreadystatechange = function() {
@@ -64,7 +60,7 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
     }
 
     for (const key in headers) {
-      if (data === null && headers[key] === 'Content-Type') {
+      if (data === null && key === 'Content-Type') {
         delete headers[key]
       } else {
         // "noImplicitAny": true in tsconfig

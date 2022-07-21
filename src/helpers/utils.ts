@@ -1,5 +1,13 @@
+export function isObject(val: any): boolean {
+  return val !== null && typeof val === 'object'
+}
+
 export function isPlainObject(val: any): val is Object {
-  return Object.prototype.toString.call(val) === '[object Object]'
+  // return Object.prototype.toString.call(val) === '[object Object]'
+  if (Object.prototype.toString.call(val) !== '[object Object]') return false
+
+  const prototype = Object.getPrototypeOf(val)
+  return prototype === null || prototype === Object.prototype
 }
 
 // 类型谓词：`parameterName is Type`
@@ -16,7 +24,7 @@ export function isDate(val: any): val is Date {
 
 export function extend<T, U>(target: T, source: U): T & U {
   for (const key in source) {
-    (target as T & U)[key] = (source as any)[key]
+    ;(target as T & U)[key] = (source as any)[key]
   }
 
   return target as T & U

@@ -14,11 +14,12 @@
 7. Client side support for protecting against XSRF
 
 
-## run test
+## implementation
+### run test
 express 运行 demo, webpack作为构建工具
 
-## request
-### get 请求参数
+### request
+#### get 请求参数
 - 值为数组
 ```typescript
 axios({
@@ -56,7 +57,7 @@ axios({
 
 > `encodeURIComponent`: 不会编码 `ASCII字母` `数字` `~` `!` `*` `(` `)` `'`
 
-### 请求 body 数据
+#### 请求 body 数据
 - 请求`body`为`Object`则转化为`JSON`字符串
 ```typescript
 const xhr = new XMLHttpRequest()
@@ -74,16 +75,15 @@ xhr.open(mehtod, url, true)
 xhr.send(body)
 ```
 
-### 请求 header
+#### 请求 header
 - 请求data 转换为JSON字符串时，需要给`headers`设置正确的 `Content-Type`(`"content-type": "application/json;charset=utf-8"`)
 
 `XMLHttpRequest.setRequestHeader()`设置HTTP请求头。该方法必须在`open()`方法和`send()`之间调用
 
 ---
 
-## response
-
-### axios返回promise对象，可以取到：
+### response
+#### axios返回promise对象，可以取到：
 - `data` 响应数据
 - `status` http 状态码
 - `statusText` 状态消息
@@ -91,7 +91,7 @@ xhr.send(body)
 - `config` 请求配置对象
 - `request` XMLHttpRequest 实例
 
-### `XMLHttpRequest.responseType` 是一个枚举字符串值，用于指定响应中包含的数据类型
+#### `XMLHttpRequest.responseType` 是一个枚举字符串值，用于指定响应中包含的数据类型
 > 它还允许更改响应类型。如果将`responseType`设为空字符串，则会使用`text`作为默认值
 > 有如下值：
   - `''` 空字符串与默认类型`text`相同
@@ -103,7 +103,7 @@ xhr.send(body)
 
 > responseType 应确保服务器发送的相应与该格式兼容，否则`response`的值将为`null` 在`open()`与`send()`之间调用
 
-### `onreadystatechange`
+#### `onreadystatechange`
 `readyState` 属性发生变化时调用
 
 | 值 | 状态             | 描述 |
@@ -117,7 +117,7 @@ xhr.send(body)
 > - `response` 返回相应正文
 > - `responseText` 返回文本（`responseType`为`''`或`'text'`）
 
-### 响应`header`
+#### 响应`header`
 `XMLHttpRequest`对象的`getAllResponseHeaders()` 获取到的响应头：
 ```typescript
 "connection: keep-alive\r\n
@@ -131,12 +131,12 @@ x-powered-by: Express\r\n
 解析成对象
 
 
-## 异常处理
+### 异常处理
 - 请求错误时（网络错误）触发 `error`事件
 - 超时错误 `timeout` 事件
 - 非200状态码
 
-### `AxiosError` 类
+#### `AxiosError` 类
 - `message` 错误文本信息
 - `config` 请求对象配置
 - `code` 错误代码
@@ -144,7 +144,7 @@ x-powered-by: Express\r\n
 - `response` 响应对象
 
 
-## 接口扩展
+### 接口扩展
 
 - `axios.request(config)`
 - `axios.get(url[, config])`
@@ -155,14 +155,23 @@ x-powered-by: Express\r\n
 - `axios.put(url[, data[, config]])`
 - `axios.patch(url[, data[, config]])`
 
-### `axios`混合对象
+#### `axios`混合对象
 
-### `axios(url, config)` `axios(config)` 重载
+#### `axios(url, config)` `axios(config)` 重载
 
-### `response.data` 支持泛型
-
-
-## `Promise`实现链式拦截器
+#### `response.data` 支持泛型
 
 
-## 策略模式合并配置
+### `Promise`实现链式拦截器
+
+```mermaid
+graph LR
+ ... --> 1[request interceptor 2] --> 2[request interceptor 1] --> 3[dispatch request] --> 4[response interceptor 1] --> 5[response interceptor 2] --> 6[...]
+```
+
+`axios.interceptors.request.use`
+`axios.interceptors.response.use`
+
+### 策略模式合并配置
+
+## flow

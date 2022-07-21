@@ -64,9 +64,8 @@ axios({
   }
 })
 
-axios({
+axios('/extend/post', {
   method: 'post',
-  url: '/extend/post',
   data: {
     msg: 'overload axios 2 params'
   }

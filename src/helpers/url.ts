@@ -1,4 +1,4 @@
-import { isPlainObject, isDate } from './utils'
+import { isObject, isDate } from './utils'
 
 function encode(str: string): string {
   // encodeURIComponent 编码范围大 不会编码：ASCII字母 数字 ~ ! * ( ) '
@@ -17,31 +17,35 @@ export function buildURL(url: string, params?: any): string {
 
   const parts: string[] = []
   for (let key in params) {
-    const val: any = params[key]
+    let val: any = params[key]
     if (val === null || typeof val === 'undefined') continue
 
     // 数组形式 则`/base/get?foo[]=bar&foo[]=baz`
     if (Array.isArray(val)) {
-      for (let item of val) {
-        parts.push(`${key}[]=${item}`)
-      }
-    } else if (isPlainObject(val)) {
-      parts.push(encode(key) + '=' + encode(JSON.stringify(val)))
-    } else if (isDate(val)) {
-      parts.push(encode(key) + '=' + encode(val.toISOString()))
+      key = key + '[]'
     } else {
-      parts.push(encode(key) + '=' + encode(val))
+      val = [val]
+    }
+
+    for (let item of val) {
+      if (isDate(item)) {
+        item = item.toISOString()
+      } else if (isObject(item)) {
+        item = JSON.stringify(item)
+      }
+      parts.push(encode(key) + '=' + encode(item))
     }
   }
 
   const serializedParams = parts.join('&')
+  if (serializedParams) {
+    const hashmarkIndex = url.indexOf('#')
+    if (hashmarkIndex >= 0) {
+      url = url.slice(0, hashmarkIndex)
+    }
 
-  const hashmarkIndex = url.indexOf('#')
-  if (hashmarkIndex >= 0) {
-    url = url.slice(0, hashmarkIndex)
+    url += (url.includes('?') ? '&' : '?') + serializedParams
   }
-
-  url += (url.includes('?') ? '&' : '?') + serializedParams
 
   return url
 }
