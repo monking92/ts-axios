@@ -163,7 +163,6 @@ x-powered-by: Express\r\n
 
 
 ### `Promise`实现链式拦截器
-
 ```mermaid
 graph LR
  ... --> 1[request interceptor 2] --> 2[request interceptor 1] --> 3[dispatch request] --> 4[response interceptor 1] --> 5[response interceptor 2] --> 6[...]
@@ -172,6 +171,14 @@ graph LR
 `axios.interceptors.request.use`
 `axios.interceptors.response.use`
 
+
 ### 策略模式合并配置
+
+#### 默认配置
+
+#### 配置合并策略
+
+#### axios.create
+
 
 ## flow

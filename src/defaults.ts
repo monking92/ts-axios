@@ -1,9 +1,5 @@
 import { IAxiosRequestConfig } from './types'
 
-const DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-}
-
 const defaults: IAxiosRequestConfig = {
   timeout: 0,
 
@@ -18,8 +14,11 @@ const defaults: IAxiosRequestConfig = {
   defaults.headers[method] = {}
 })
 
+const DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
 ;['post', 'put', 'patch'].forEach(method => {
-  defaults.headers[method] = {}
+  defaults.headers[method] = DEFAULT_CONTENT_TYPE
 })
 
 export default defaults

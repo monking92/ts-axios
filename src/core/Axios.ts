@@ -16,9 +16,11 @@ interface IPromiseChain<T> {
 }
 
 export default class Axios {
+  defaults: IAxiosRequestConfig
   interceptors: IInterceptor
 
-  constructor() {
+  constructor(instanceConfig: IAxiosRequestConfig) {
+    this.defaults = instanceConfig
     this.interceptors = {
       request: new InterceptorManager<IAxiosRequestConfig>(),
       response: new InterceptorManager<IAxiosResponse>()

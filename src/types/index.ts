@@ -44,6 +44,8 @@ export interface IAxiosError extends Error {
 }
 
 export interface IAxios {
+  defaults: IAxiosRequestConfig
+
   interceptors: {
     request: IAxiosInterceptorManager<IAxiosRequestConfig>,
     response: IAxiosInterceptorManager<IAxiosResponse>
