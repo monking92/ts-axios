@@ -4,6 +4,7 @@ import {
 } from '../types'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
+import mergeConfig from './mergeConfig'
 
 interface IInterceptor {
   request: InterceptorManager<IAxiosRequestConfig>,
@@ -34,6 +35,8 @@ export default class Axios {
     } else {
       config = url
     }
+
+    config = mergeConfig(this.defaults, config)
 
     const promiseChain: IPromiseChain<any>[] = [{
       fulfilled: dispatchRequest,
