@@ -2,7 +2,7 @@ import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from '../types'
 
 import xhr from './xhr'
 import { buildURL } from '../helpers/url'
-import { processHeaders } from '../helpers/headers'
+import { processHeaders, flatHeaders } from '../helpers/headers'
 import { transformRequest, transformResponse } from '../helpers/data'
 
 export default function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
@@ -16,6 +16,7 @@ function processConfig(config: IAxiosRequestConfig): void {
   config.url = transformURL(config)
   config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
+  config.headers = flatHeaders(config.headers, config.method!)
 }
 
 function transformURL(config: IAxiosRequestConfig): string {

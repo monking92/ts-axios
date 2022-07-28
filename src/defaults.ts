@@ -7,7 +7,9 @@ const defaults: IAxiosRequestConfig = {
     common: {
       Accept: 'application/json, text/plain, */*'
     }
-  }
+  },
+
+  method: 'get'
 }
 
 ;['delete', 'get', 'head'].forEach(method => {

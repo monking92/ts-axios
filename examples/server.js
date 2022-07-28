@@ -31,6 +31,7 @@ registBaseRouter()
 registErrorRouter()
 registExtendRouter()
 registInterceptor()
+registConfigRouter()
 
 function registSimpleRouter() {
   router.get('/simple/get', function(req, res) {
@@ -133,6 +134,12 @@ function registInterceptor() {
         bar: '0'
       }
     })
+  })
+}
+
+function registConfigRouter() {
+  router.post('/config/post', function(req, res) {
+    res.json(req.body)
   })
 }
 
