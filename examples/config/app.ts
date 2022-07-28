@@ -1,14 +1,15 @@
 import axios from '../../src/index'
 import qs from 'qs'
 
-axios.defaults.headers.common['foo'] = 123
+axios.defaults.headers.common['foo'] = 111
+axios.defaults.headers.post['bar'] = 222
 
 axios({
   url: '/config/post',
   method: 'post',
   data: qs.stringify({ a: 1 }),
   headers: {
-    bar: 321
+    baz: 333
   }
 }).then(res => {
   console.log('res: ', res)

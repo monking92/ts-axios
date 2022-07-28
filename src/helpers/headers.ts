@@ -1,22 +1,25 @@
 import { isPlainObject, deepMerge } from './utils'
 
-function normalizedHeaderKey(key: string): string {
+/* function normalizedHeaderKey(key: string): string {
   return key.replace(/(\b|-)[a-z]/g, function(char) {
     return char.toUpperCase()
   })
+} */
+
+function normalizedHeaderKey(headers: any, normalizedKey: string): void {
+  for (const key in headers) {
+    if (key !== normalizedKey && key.toUpperCase() === normalizedKey.toUpperCase()) {
+      headers[normalizedKey] = headers[key]
+      delete headers[key]
+    }
+  }
 }
 
 // application/json;charset=UTF-8
 // application/x-www-form-urlencoded;charset=UTF-8
 export function processHeaders(headers: any, data: any): any {
-  for (const key in headers) {
-    const nKey = normalizedHeaderKey(key)
-    headers[nKey] = headers[key]
-
-    if (key !== nKey) {
-      delete headers[key]
-    }
-  }
+  normalizedHeaderKey(headers, 'Accept')
+  normalizedHeaderKey(headers, 'Content-Type')
 
   if (isPlainObject(data) && !headers['Content-Type']) {
     headers['Content-Type'] = 'application/json;charset=UTF-8'
@@ -52,7 +55,7 @@ export function flatHeaders(headers: any, method: string) {
   )
 
   ;['delete', 'get', 'head', 'post', 'put', 'patch', 'common'].forEach(key => {
-    delete headers[key]
+    delete flatedHeaders[key]
   })
 
   return flatedHeaders

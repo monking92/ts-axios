@@ -15,8 +15,8 @@ export default function dispatchRequest(config: IAxiosRequestConfig): IAxiosProm
 function processConfig(config: IAxiosRequestConfig): void {
   config.url = transformURL(config)
   config.headers = transformHeaders(config)
-  config.data = transformRequestData(config)
   config.headers = flatHeaders(config.headers, config.method!)
+  config.data = transformRequestData(config)
 }
 
 function transformURL(config: IAxiosRequestConfig): string {
