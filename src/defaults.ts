@@ -1,4 +1,5 @@
 import { IAxiosRequestConfig } from './types'
+import { isPlainObject } from './helpers/utils'
 
 const defaults: IAxiosRequestConfig = {
   timeout: 0,
@@ -9,7 +10,33 @@ const defaults: IAxiosRequestConfig = {
     }
   },
 
-  method: 'get'
+  method: 'get',
+
+  transformRequest: [function transformRequest(data) {
+    const method = this.method?.toUpperCase()
+    // xhr: get head 请求data设置为null
+    if (method === 'GET' || method === 'HEAD') {
+      return null
+    }
+
+    if (isPlainObject(data)) {
+      return JSON.stringify(data)
+    }
+
+    return data
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data)
+      } catch (e) {
+        //
+      }
+    }
+  
+    return data
+  }]
 }
 
 ;['delete', 'get', 'head'].forEach(method => {

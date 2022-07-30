@@ -14,3 +14,18 @@ axios({
 }).then(res => {
   console.log('res: ', res)
 })
+
+// transformRequest
+axios({
+  url: '/config/post',
+  method: 'post',
+  data: { a: 1 },
+  transformRequest: [
+    function(data) {
+      data.b = 2
+      return { c: 3 }
+    },
+  ].concat(axios.defaults.transformRequest!)
+}).then(res => {
+  console.log('res: ', res)
+})

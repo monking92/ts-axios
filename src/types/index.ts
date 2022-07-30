@@ -1,19 +1,17 @@
 // type 定义类型别名
 // 字符串字面量类型允许指定字符串必须的固定值
 export type MethodType =
-  | 'get'
-  | 'GET'
-  | 'post'
-  | 'POST'
-  | 'head'
-  | 'HEAD'
-  | 'put'
-  | 'PUT'
+  | 'get' | 'GET'
+  | 'post' | 'POST'
+  | 'head' | 'HEAD'
+  | 'put' | 'PUT'
   | 'PATCH'
-  | 'delete'
-  | 'DELETE'
-  | 'options'
-  | 'OPTIONS'
+  | 'delete' | 'DELETE'
+  | 'options' | 'OPTIONS'
+
+export type TransformRequestType = (this: IAxiosRequestConfig, data: any) => any
+
+export type TransformResponseType = (this: IAxiosRequestConfig, data: any) => any
 
 export interface IAxiosRequestConfig {
   url?: string
@@ -22,7 +20,9 @@ export interface IAxiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
-  timeout?: number
+  timeout?: number,
+  transformRequest?: TransformRequestType | TransformRequestType[],
+  transformResponse?: TransformResponseType | TransformResponseType[]
 }
 
 export interface IAxiosResponse<T=any> {
