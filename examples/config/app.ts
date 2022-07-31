@@ -25,7 +25,17 @@ axios({
       data.b = 2
       return { c: 3 }
     },
-  ].concat(axios.defaults.transformRequest!)
+  ].concat(axios.defaults.transformRequest),
+  transformResponse: [].concat(axios.defaults.transformResponse,
+    function(data) {
+      if (data && typeof data === 'object') {
+        data.d = 4
+      }
+
+      return data
+    }
+  )
+  // ].concat(axios.defaults.transformResponse),
 }).then(res => {
   console.log('res: ', res)
 })

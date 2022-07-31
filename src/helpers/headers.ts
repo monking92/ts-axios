@@ -1,4 +1,5 @@
 import { isPlainObject, deepMerge } from './utils'
+import { MethodType } from '../types'
 
 /* function normalizedHeaderKey(key: string): string {
   return key.replace(/(\b|-)[a-z]/g, function(char) {
@@ -47,7 +48,7 @@ export function parseResponseHeaders(header: string): any {
   return header
 }
 
-export function flatHeaders(headers: any, method: string) {
+export function flatHeaders(headers: any, method: MethodType) {
   const flatedHeaders = deepMerge(
     headers.common || {},
     headers[method] || {},
