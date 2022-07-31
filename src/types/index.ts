@@ -76,6 +76,10 @@ export interface IAxiosInstance extends IAxios {
   <T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 }
 
+export interface IAxiosStatic extends IAxiosInstance {
+  create(config?: IAxiosRequestConfig): IAxiosInstance
+}
+
 export interface IAxiosInterceptorManager<T> {
   use(fulfilled: IFulfilledFn<T>, rejected?: IRejectedFn): number
   eject(interceptorId: number): void

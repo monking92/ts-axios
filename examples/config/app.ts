@@ -39,3 +39,31 @@ axios({
 }).then(res => {
   console.log('res: ', res)
 })
+
+// axios.create
+const instance = axios.create({
+  transformRequest: [
+    function(data) {
+      return qs.stringify(data)
+    },
+  ].concat(axios.defaults.transformRequest),
+  transformResponse: [].concat(axios.defaults.transformResponse,
+    function(data) {
+      if (data && typeof data === 'object') {
+        data.e = 5
+      }
+
+      return data
+    }
+  )
+})
+
+instance({
+  url: '/config/post',
+  method: 'post',
+  data: {
+    f: 6
+  }
+}).then(res => {
+  console.log('axios.create: ', res)
+})
