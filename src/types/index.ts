@@ -22,7 +22,8 @@ export interface IAxiosRequestConfig {
   responseType?: XMLHttpRequestResponseType
   timeout?: number,
   transformRequest?: TransformRequestType | TransformRequestType[],
-  transformResponse?: TransformResponseType | TransformResponseType[]
+  transformResponse?: TransformResponseType | TransformResponseType[],
+  cancelToken?: ICancelToken
 }
 
 export interface IAxiosResponse<T=any> {
@@ -41,6 +42,13 @@ export interface IAxiosError extends Error {
   code?: string | null
   request?: XMLHttpRequest
   response?: IAxiosResponse
+}
+
+export interface ICancelTokenStatic {
+  new (executor: (message: string) => void): ICancelToken
+}
+export interface ICancelToken {
+  promise: Promise<string>
 }
 
 export interface IAxios {
@@ -77,7 +85,8 @@ export interface IAxiosInstance extends IAxios {
 }
 
 export interface IAxiosStatic extends IAxiosInstance {
-  create(config?: IAxiosRequestConfig): IAxiosInstance
+  create(config?: IAxiosRequestConfig): IAxiosInstance,
+  CancelToken: ICancelTokenStatic
 }
 
 export interface IAxiosInterceptorManager<T> {

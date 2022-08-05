@@ -70,6 +70,14 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
       }
     }
 
+    if (config.cancelToken) {
+      config.cancelToken.promise.then((reason) => {
+        xhr.abort()
+        xhr = null
+        reject(reason)
+      })
+    }
+
     // 发送请求 异步（默认）-则请求发送后立即返回 同步-则收到响应后才返回
     // GET HEAD请求 则应将参数设置为 null
     // data 类型：
