@@ -9,9 +9,9 @@ export type MethodType =
   | 'delete' | 'DELETE'
   | 'options' | 'OPTIONS'
 
-export type TransformRequestType = (this: IAxiosRequestConfig, data: any) => any
-
-export type TransformResponseType = (this: IAxiosRequestConfig, data: any) => any
+export interface IAxiosTransformerFn {
+  (this: IAxiosRequestConfig, data: any): any
+}
 
 export interface IAxiosRequestConfig {
   url?: string
@@ -21,8 +21,8 @@ export interface IAxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number,
-  transformRequest?: TransformRequestType | TransformRequestType[],
-  transformResponse?: TransformResponseType | TransformResponseType[],
+  transformRequest?: IAxiosTransformerFn | IAxiosTransformerFn[],
+  transformResponse?: IAxiosTransformerFn | IAxiosTransformerFn[],
   cancelToken?: ICancelToken
 }
 

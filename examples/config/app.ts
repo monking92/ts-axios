@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios, { IAxiosTransformerFn } from '../../src/index'
 import qs from 'qs'
 
 axios.defaults.headers.common['foo'] = 111
@@ -25,8 +25,8 @@ axios({
       data.b = 2
       return { c: 3 }
     },
-  ].concat(axios.defaults.transformRequest),
-  transformResponse: [].concat(axios.defaults.transformResponse,
+  ].concat(axios.defaults.transformRequest!),
+  transformResponse: (axios.defaults.transformResponse as IAxiosTransformerFn[]).concat(
     function(data) {
       if (data && typeof data === 'object') {
         data.d = 4
@@ -46,8 +46,8 @@ const instance = axios.create({
     function(data) {
       return qs.stringify(data)
     },
-  ].concat(axios.defaults.transformRequest),
-  transformResponse: [].concat(axios.defaults.transformResponse,
+  ].concat(axios.defaults.transformRequest!),
+  transformResponse: (axios.defaults.transformResponse as IAxiosTransformerFn[]).concat(
     function(data) {
       if (data && typeof data === 'object') {
         data.e = 5
