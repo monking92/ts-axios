@@ -1,6 +1,6 @@
-import { IAxiosRequestConfig, TransformRequestType } from '../types'
+import { IAxiosRequestConfig, IAxiosTransformerFn } from '../types'
 
-export default function transformData(this: IAxiosRequestConfig, data: any, fns: TransformRequestType | TransformRequestType[]) {
+export default function transformData(this: IAxiosRequestConfig, data: any, fns: IAxiosTransformerFn | IAxiosTransformerFn[]) {
   if (!Array.isArray(fns)) fns = [fns]
 
   fns.forEach(fn => {

@@ -1,11 +1,13 @@
 export default class CancelToken {
   promise: Promise<string>
-  constructor(executor: (message: string) => void) {
-    let resolvePromise
+  constructor(executor: (cancel: (message: string) => void) => void) {
+    let resolvePromise: (message?: string) => void
     this.promise = new Promise((resolve, reject) => {
       resolvePromise = resolve
     })
 
-    executor(resolvePromise)
+    executor(function(message: string) {
+      resolvePromise(message)
+    })
   }
 }

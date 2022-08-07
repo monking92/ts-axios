@@ -32,6 +32,7 @@ registErrorRouter()
 registExtendRouter()
 registInterceptor()
 registConfigRouter()
+registCancelRouter()
 
 function registSimpleRouter() {
   router.get('/simple/get', function(req, res) {
@@ -140,6 +141,12 @@ function registInterceptor() {
 function registConfigRouter() {
   router.post('/config/post', function(req, res) {
     res.json(req.body)
+  })
+}
+
+function registCancelRouter() {
+  router.get('/cancel/get', function(req, res) {
+    res.json({ msg: 'cancel axios' })
   })
 }
 
