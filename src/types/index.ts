@@ -44,11 +44,24 @@ export interface IAxiosError extends Error {
   response?: IAxiosResponse
 }
 
-export interface ICancelTokenStatic {
-  new (executor: (message: string) => void): ICancelToken
-}
 export interface ICancelToken {
   promise: Promise<string>
+  reason?: string
+}
+
+export interface ICancelerFn {
+  (message?: string): void
+}
+
+export interface ICancelTokenSource {
+  token: ICancelToken,
+  cancel: ICancelerFn
+}
+
+export interface ICancelTokenStatic {
+  new (executor: (cancel: ICancelerFn) => void): ICancelToken
+  // source: () => ICancelTokenSource
+  source(): ICancelTokenSource
 }
 
 export interface IAxios {

@@ -4,7 +4,7 @@ import createError from '../helpers/error'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
-    let { url, method = 'GET', data = null, headers, responseType, timeout = 0 } = config
+    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken } = config
 
     let xhr: any = new XMLHttpRequest()
 
@@ -70,8 +70,8 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
       }
     }
 
-    if (config.cancelToken) {
-      config.cancelToken.promise.then((reason) => {
+    if (cancelToken) {
+      cancelToken.promise.then((reason) => {
         xhr.abort()
         xhr = null
         reject(reason)
