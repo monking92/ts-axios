@@ -7,20 +7,25 @@ axios.get('/cancel/get', {
   cancelToken: source.token
 }).catch(function(thrown) {
   console.log('thrown: ', thrown)
-  // if (axios.isCancel(thrown)) {
-  //   console.log('Request canceled', thrown.message)
-  // } else {
-  //   // handle error
-  // }
+  if (axios.isCancel(thrown)) {
+    console.log('Request canceled', thrown.message)
+  } else {
+    // handle error
+    console.log('handle error')
+  }
 })
+source.cancel('solution 1, post, operation canceled by the user')
 
+// const source2 = CancelToken1.source()
 axios.post('/cancel/post', {
   name: 'sun'
 }, {
   cancelToken: source.token
+}).catch(function(thrown) {
+  if (axios.isCancel(thrown)) {
+    console.log('Request 2 canceled', thrown.message)
+  }
 })
-
-source.cancel('solution 1, post, operation canceled by the user')
 
 
 // 2

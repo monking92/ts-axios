@@ -45,8 +45,12 @@ export interface IAxiosError extends Error {
 }
 
 export interface ICancelToken {
-  promise: Promise<string>
-  reason?: string
+  promise: Promise<ICancel>
+  reason?: ICancel
+}
+
+export interface ICancel {
+  message?: string
 }
 
 export interface ICancelerFn {
@@ -98,8 +102,9 @@ export interface IAxiosInstance extends IAxios {
 }
 
 export interface IAxiosStatic extends IAxiosInstance {
-  create(config?: IAxiosRequestConfig): IAxiosInstance,
+  create(config?: IAxiosRequestConfig): IAxiosInstance
   CancelToken: ICancelTokenStatic
+  isCancel(value: any): boolean
 }
 
 export interface IAxiosInterceptorManager<T> {

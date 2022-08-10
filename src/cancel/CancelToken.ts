@@ -1,26 +1,28 @@
-import { ICancelerFn } from '../types'
+import { ICancelerFn, ICancelTokenSource } from '../types'
+import Cancel from './Cancel'
 
 interface ResolvePromise {
-  (reason?: string): void
+  (reason?: Cancel): void
 }
 
 export default class CancelToken {
-  promise: Promise<string>
-  reason?: string
-  static source() {
-    let cancel
+  promise: Promise<Cancel>
+  reason?: Cancel
+
+  static source(): ICancelTokenSource {
+    let cancel: ICancelerFn
     const token = new CancelToken(function executor(c) {
       cancel = c
     })
 
-    return { token, cancel }
+    return { token, cancel: cancel! }
   }
 
   constructor(executor: (cancel: ICancelerFn) => void) {
     // let resolvePromise: any
     // let resolvePromise: (reason?: string) => void
     let resolvePromise: ResolvePromise
-    this.promise = new Promise<string>((resolve, reject) => {
+    this.promise = new Promise<Cancel>((resolve, reject) => {
       resolvePromise = resolve as ResolvePromise
     })
 
@@ -29,7 +31,7 @@ export default class CancelToken {
         // 防止cancel函数多次调用
         return
       }
-      this.reason = message
+      this.reason = new Cancel(message)
       resolvePromise(this.reason)
     })
   }

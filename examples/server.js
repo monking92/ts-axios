@@ -149,7 +149,7 @@ function registCancelRouter() {
     res.json({ msg: 'get, cancel axios' })
   })
 
-  router.get('/cancel/post', function(req, res) {
+  router.post('/cancel/post', function(req, res) {
     res.json({ msg: 'post, cancel axios' })
   })
 }
