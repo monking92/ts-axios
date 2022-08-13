@@ -146,11 +146,15 @@ function registConfigRouter() {
 
 function registCancelRouter() {
   router.get('/cancel/get', function(req, res) {
-    res.json({ msg: 'get, cancel axios' })
+    setTimeout(() => {
+      res.json({ msg: 'get, cancel axios' })
+    }, 1000)
   })
 
   router.post('/cancel/post', function(req, res) {
-    res.json({ msg: 'post, cancel axios' })
+    setTimeout(() => {
+      res.json({ msg: 'post, cancel axios' })
+    }, 1000)
   })
 }
 

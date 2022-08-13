@@ -182,7 +182,9 @@ graph LR
 
 
 ### cancelToken 取消请求
-#### 方案1 `CancelToken.source`
+
+#### 取消请求方案
+1. 方案1 `CancelToken.source`
 ```typescript
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
@@ -207,7 +209,7 @@ axios.post('/user/12345', {
 source.cancel('Operation canceled by the user.');
 ```
 
-#### 方案2 `CancelToken` constructor
+2. 方案2 `CancelToken` constructor
 ```typescript
 const CancelToken = axios.CancelToken;
 let cancel;
@@ -222,5 +224,10 @@ axios.get('/user/12345', {
 // cancel the request
 cancel();
 ```
+
+#### `isCancel`
+
+#### `throwIfRequested`
+同一个 CancelToken 的请求，cancel将取消所有请求（不发送请求）
 
 ## flow

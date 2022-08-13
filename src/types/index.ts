@@ -46,7 +46,8 @@ export interface IAxiosError extends Error {
 
 export interface ICancelToken {
   promise: Promise<ICancel>
-  reason?: ICancel
+  reason?: ICancel,
+  throwIfRequested(): void
 }
 
 export interface ICancel {

@@ -6,6 +6,7 @@ import { buildURL } from '../helpers/url'
 import { processHeaders, flatHeaders } from '../helpers/headers'
 
 export default function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
+  throwIfCancellationRequested(config)
   processConfig(config)
   return xhr(config).then((res: IAxiosResponse) => {
     return transformData.call(config, res.data, config.transformResponse!)
@@ -27,4 +28,10 @@ function transformURL(config: IAxiosRequestConfig): string {
 function transformHeaders(config: IAxiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
+}
+
+function throwIfCancellationRequested(config: IAxiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
 }
