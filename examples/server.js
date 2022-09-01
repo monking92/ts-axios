@@ -1,9 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
+
+require('./server2')
 
 const app = express()
 const compiler = webpack(webpackConfig)
@@ -23,6 +26,7 @@ app.use(express.static(__dirname))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 const router = express.Router()
 
@@ -33,6 +37,7 @@ registExtendRouter()
 registInterceptor()
 registConfigRouter()
 registCancelRouter()
+registMoreRouter()
 
 function registSimpleRouter() {
   router.get('/simple/get', function(req, res) {
@@ -155,6 +160,18 @@ function registCancelRouter() {
     setTimeout(() => {
       res.json({ msg: 'post, cancel axios' })
     }, 1000)
+  })
+}
+
+function registMoreRouter() {
+  /* router.get('/more/credentials/get', function(req, res) {
+    console.log('get: ', req.cookies)
+    res.json(req.cookies)
+  }) */
+
+  router.post('/more/credentials/post', function(req, res) {
+    console.log('post: ', req.cookies)
+    res.json(req.cookies)
   })
 }
 

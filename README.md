@@ -230,4 +230,9 @@ cancel();
 #### `throwIfRequested`
 同一个 CancelToken 的请求，cancel将取消所有请求（不发送请求）
 
+
+### `withCredentials`
+indicates whether or not cross-site Access-Control requests should be made using credentials
+
+
 ## flow
