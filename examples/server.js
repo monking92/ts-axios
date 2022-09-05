@@ -169,8 +169,8 @@ function registMoreRouter() {
     res.json(req.cookies)
   }) */
 
-  router.post('/more/credentials/post', function(req, res) {
-    console.log('post: ', req.cookies)
+  router.get('/more/credentials', function(req, res) {
+    console.log('get: ', req.cookies)
     res.json(req.cookies)
   })
 }

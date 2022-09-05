@@ -23,7 +23,8 @@ export interface IAxiosRequestConfig {
   timeout?: number,
   transformRequest?: IAxiosTransformerFn | IAxiosTransformerFn[],
   transformResponse?: IAxiosTransformerFn | IAxiosTransformerFn[],
-  cancelToken?: ICancelToken
+  cancelToken?: ICancelToken,
+  withCredentials?: boolean
 }
 
 export interface IAxiosResponse<T=any> {

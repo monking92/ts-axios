@@ -4,7 +4,7 @@ import createError from '../helpers/error'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
-    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken } = config
+    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken, withCredentials } = config
 
     let xhr: any = new XMLHttpRequest()
 
@@ -76,6 +76,10 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
         xhr = null
         reject(reason)
       })
+    }
+
+    if (withCredentials) {
+      xhr.withCredentials = true
     }
 
     // 发送请求 异步（默认）-则请求发送后立即返回 同步-则收到响应后才返回
