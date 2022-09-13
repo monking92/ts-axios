@@ -9,7 +9,7 @@ app.use(cookieParser())
 
 const cors = {
   'Access-Control-Allow-Origin': 'http://localhost:8081',
-  // 'Access-Control-Allow-Methods': 'OPTIONS',
+  'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
   'Access-Control-Allow-Credentials': true,
   'Access-Control-Allow-Headers': 'Content-Type, custome-header'
 }

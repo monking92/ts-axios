@@ -14,6 +14,39 @@
 7. Client side support for protecting against XSRF
 
 
+## XMLHttpRequest
+
+### http method
+- `HEAD` 请求资源头部信息，并且这些头部信息与 HTTP `GET` 方法请求时返回的一致。（该请求方法的一个使用场景是在下载一个大文件前先获取其大小再决定是否要下载，以此可以节约带宽资源）
+- `OPTIONS` 用于获取目的资源所支持的通信选项。（`CORS`中可以使用`OPTIONS`方法发起一个预检请求）
+  可以使用`OPTIONS`方法对服务器发起请求，以检测服务器支持哪些HTTP方法：
+  ```
+  curl -X OPTIONS http://localhost:8081/more/credentials -i
+  ```
+
+### cors(域 协议 端口)
+跨源域资源共享（CORS）机制允许 Web 应用服务器进行跨源访问控制，从而使跨源数据传输得以安全进行
+
+对可能对服务器数据产生副作用的HTTP请求方法（特别是 GET 以外的 HTTP 请求，或者搭配某些 MIME 类型 的 POST 请求），浏览器必须首先使用 OPTIONS 方法发起一个预检请求（preflight request）
+
+#### 1.场景
+- `XMLHttpRequest`或`Fetch APIS`发起的跨源HTTP请求
+- Web 字体 (CSS 中通过 @font-face 使用跨源字体资源)
+- WebGL贴图
+- 使用`drawImage`将Images/Video画面绘制到canvas
+- 来自图像的css图形
+
+#### 简单请求与预检请求
+1. 简单请求。不会触发CORS预检请求的请求。满足以下条件
+    - 使用下列方法之一
+        - GET
+        - HEAD
+        - POST
+    - `Content-Type` 为`text/plain` `multipart/form-data` `application/x-www-form-urlencoded`
+    - 自定义请求头
+
+2. 预检请求（OPTIONS）
+
 ## implementation
 ### run test
 express 运行 demo, webpack作为构建工具
