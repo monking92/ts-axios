@@ -1,10 +1,12 @@
 import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse, IAxiosError } from '../types'
 import { parseResponseHeaders } from '../helpers/headers'
 import createError from '../helpers/error'
+import { isURLSameOrigin } from '../helpers/url'
+import cookies from '../helpers/cookies'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
-    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken, withCredentials } = config
+    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken, withCredentials, xsrfCookieName, xsrfHeaderName } = config
 
     let xhr: any = new XMLHttpRequest()
 
@@ -57,6 +59,13 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
     // open() send() 之间设置responseType
     if (responseType) {
       xhr.responseType = responseType
+    }
+
+    if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName) {
+      const xsrfCookieValue = cookies.read(xsrfCookieName)
+      if (xsrfCookieValue && xsrfHeaderName) {
+        headers[xsrfHeaderName] = xsrfCookieValue
+      }
     }
 
     for (const key in headers) {

@@ -173,6 +173,12 @@ function registMoreRouter() {
     console.log('get: ', req.cookies)
     res.json(req.cookies)
   })
+
+  router.post('/more/xsrf', function(req, res) {
+    console.log('xsrf post: ')
+    res.cookie('xsrf-sun', 123)
+    res.json({ 'set-cookie': 'xsrf-sun' })
+  })
 }
 
 

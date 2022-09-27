@@ -12,6 +12,10 @@ const defaults: IAxiosRequestConfig = {
 
   method: 'get',
 
+  xsrfCookieName: 'XSRF-TOKEN',
+
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
   transformRequest: [function transformRequest(data) {
     const method = this.method?.toUpperCase()
     // xhr: get head 请求data设置为null

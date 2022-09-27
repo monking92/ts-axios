@@ -1,5 +1,10 @@
 import { isObject, isDate } from './utils'
 
+interface IOriginURL {
+  protocol: string,
+  host: string
+}
+
 function encode(str: string): string {
   // encodeURIComponent 编码范围大 不会编码：ASCII字母 数字 ~ ! * ( ) '
   return encodeURIComponent(str)
@@ -48,4 +53,21 @@ export function buildURL(url: string, params?: any): string {
   }
 
   return url
+}
+
+const urlParsingNode = document.createElement('a')
+
+function resolveURL(url: string): IOriginURL {
+  urlParsingNode.setAttribute('href', url)
+
+  return {
+    protocol: urlParsingNode.protocol,
+    host: urlParsingNode.host
+  }
+}
+
+export function isURLSameOrigin(url: string): boolean {
+  const { protocol, host } = resolveURL(url)
+  const { protocol: curProtocol, host: curHost } = window.location
+  return protocol === curProtocol && host === curHost
 }

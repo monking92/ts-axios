@@ -267,5 +267,9 @@ cancel();
 ### `withCredentials`
 indicates whether or not cross-site Access-Control requests should be made using credentials
 
+### `xsrf`
+- `xsrfCookieName: 'XSRF-TOKEN'`
+- `xsrfHeaderName: 'X-XSRF-TOKEN'`
+
 
 ## flow

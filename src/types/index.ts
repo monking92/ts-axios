@@ -24,7 +24,9 @@ export interface IAxiosRequestConfig {
   transformRequest?: IAxiosTransformerFn | IAxiosTransformerFn[],
   transformResponse?: IAxiosTransformerFn | IAxiosTransformerFn[],
   cancelToken?: ICancelToken,
-  withCredentials?: boolean
+  withCredentials?: boolean,
+  xsrfCookieName?: string,
+  xsrfHeaderName?: string
 }
 
 export interface IAxiosResponse<T=any> {
