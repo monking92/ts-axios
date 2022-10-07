@@ -6,7 +6,8 @@ import cookies from '../helpers/cookies'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
-    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken, withCredentials, xsrfCookieName, xsrfHeaderName } = config
+    let { url, method = 'GET', data = null, headers, responseType, timeout = 0, cancelToken,
+      withCredentials, xsrfCookieName, xsrfHeaderName, onUploadProgress, onDownloadProgress } = config
 
     let xhr: any = new XMLHttpRequest()
 
@@ -51,6 +52,14 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
       // clean xhr
       xhr = null
     })
+
+    if (typeof onUploadProgress === 'function') {
+      xhr.upload.addEventListener('progress', onUploadProgress)
+    }
+
+    if (typeof onDownloadProgress === 'function') {
+      xhr.addEventListener('progress', onDownloadProgress)
+    }
 
     // 初始化一个请求
     // param: method, url, async, user, password

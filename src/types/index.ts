@@ -26,7 +26,9 @@ export interface IAxiosRequestConfig {
   cancelToken?: ICancelToken,
   withCredentials?: boolean,
   xsrfCookieName?: string,
-  xsrfHeaderName?: string
+  xsrfHeaderName?: string,
+  onUploadProgress?: (progressEvent: ProgressEvent) => void,
+  onDownloadProgress?: (progressEvent: ProgressEvent) => void
 }
 
 export interface IAxiosResponse<T=any> {
