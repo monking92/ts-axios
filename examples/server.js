@@ -42,6 +42,7 @@ registInterceptor()
 registConfigRouter()
 registCancelRouter()
 registMoreRouter()
+registProgressRouter()
 
 function registSimpleRouter() {
   router.get('/simple/get', function(req, res) {
@@ -182,6 +183,12 @@ function registMoreRouter() {
     console.log('xsrf post: ')
     res.cookie('xsrf-sun', 123)
     res.json({ 'set-cookie': 'xsrf-sun' })
+  })
+}
+
+function registProgressRouter() {
+  router.post('/progress/upload/post', function(req, res) {
+    res.json('upload success')
   })
 }
 

@@ -3,6 +3,7 @@ import { parseResponseHeaders } from '../helpers/headers'
 import createError from '../helpers/error'
 import { isURLSameOrigin } from '../helpers/url'
 import cookies from '../helpers/cookies'
+import { isFormData } from '../helpers/utils'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
@@ -52,6 +53,11 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
       // clean xhr
       xhr = null
     })
+
+    // 上传文件 FormData 类型删除 Content-Type 头 ？
+    if (isFormData(data)) {
+      // delete headers['Content-Type']
+    }
 
     if (typeof onUploadProgress === 'function') {
       xhr.upload.addEventListener('progress', onUploadProgress)

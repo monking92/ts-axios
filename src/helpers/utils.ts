@@ -22,6 +22,18 @@ export function isDate(val: any): val is Date {
   return Object.prototype.toString.call(val) === '[object Date]'
 }
 
+export function isUndefined(val: any) {
+  return typeof val === 'undefined'
+}
+
+export function isArray(val: any): boolean {
+  return Array.isArray(val)
+}
+
+export function isFormData(val: any): boolean {
+  return Object.prototype.toString.call(val) === '[object FormData]'
+}
+
 export function extend<T, U>(target: T, source: U): T & U {
   for (const key in source) {
     ;(target as T & U)[key] = (source as any)[key]
@@ -30,13 +42,6 @@ export function extend<T, U>(target: T, source: U): T & U {
   return target as T & U
 }
 
-export function isUndefined(val: any) {
-  return typeof val === 'undefined'
-}
-
-export function isArray(val: any): boolean {
-  return Array.isArray(val)
-}
 
 export function deepMerge(...objList: any[]): any {
   const result = Object.create(null)

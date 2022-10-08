@@ -274,6 +274,8 @@ indicates whether or not cross-site Access-Control requests should be made using
 
 
 ### `onUploadProgress` `onDownloadProgress`
+- `xhr.upload.onprogress`
+- `xhr.onprogress`
 
 
 ## flow
