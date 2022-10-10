@@ -54,9 +54,9 @@ export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
       xhr = null
     })
 
-    // 上传文件 FormData 类型删除 Content-Type 头 ？
+    // 上传文件 FormData 类型删除 Content-Type 头
     if (isFormData(data)) {
-      // delete headers['Content-Type']
+      delete headers['Content-Type']
     }
 
     if (typeof onUploadProgress === 'function') {

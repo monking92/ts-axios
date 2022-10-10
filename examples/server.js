@@ -1,10 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const multipart = require('connect-multiparty')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
+const path = require('path')
 
 require('./server2')
 
@@ -187,7 +189,11 @@ function registMoreRouter() {
 }
 
 function registProgressRouter() {
-  router.post('/progress/upload/post', function(req, res) {
+  const multipartMiddleware = multipart({
+    uploadDir: path.resolve(__dirname, '../static')
+  })
+
+  router.post('/progress/upload/post', multipartMiddleware, function(req, res) {
     res.json('upload success')
   })
 }
