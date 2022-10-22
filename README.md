@@ -274,8 +274,20 @@ indicates whether or not cross-site Access-Control requests should be made using
 
 
 ### `onUploadProgress` `onDownloadProgress`
-- `xhr.upload.onprogress`
-- `xhr.onprogress`
+- `onUploadProgress`: `xhr.upload.onprogress`
+- `onDownloadProgress`: `xhr.onprogress`
 
+### auth
+
+### validateStatus
+
+### paramsSerializer
+
+### baseURL
+
+### getUri
 
 ## flow
+
+## test
+- jest
