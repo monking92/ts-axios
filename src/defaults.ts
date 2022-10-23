@@ -1,5 +1,5 @@
 import { IAxiosRequestConfig } from './types'
-import { isPlainObject } from './helpers/utils'
+import { isPlainObject } from './utils'
 
 const defaults: IAxiosRequestConfig = {
   timeout: 0,

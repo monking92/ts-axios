@@ -1,4 +1,4 @@
-import { isPlainObject, deepMerge } from './utils'
+import { isPlainObject, deepMerge } from '../utils'
 import { MethodType } from '../types'
 
 /* function normalizedHeaderKey(key: string): string {

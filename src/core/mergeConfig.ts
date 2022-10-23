@@ -1,4 +1,4 @@
-import { isUndefined, deepMerge, isPlainObject } from '../helpers/utils'
+import { isUndefined, deepMerge, isPlainObject } from '../utils'
 import { IAxiosRequestConfig } from '../types'
 
 function defaultStrategy(val1: any, val2: any) {

@@ -1,7 +1,7 @@
 import { IAxiosRequestConfig, IAxiosStatic } from './types'
 import Axios from './core/Axios'
 import mergeConfig from './core/mergeConfig'
-import { extend } from './helpers/utils'
+import { extend } from './utils'
 import defaults from './defaults'
 import CancelToken from './cancel/CancelToken'
 import Cancel from './cancel/Cancel'

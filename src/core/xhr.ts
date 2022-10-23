@@ -3,7 +3,7 @@ import { parseResponseHeaders } from '../helpers/headers'
 import createError from '../helpers/error'
 import { isURLSameOrigin } from '../helpers/url'
 import cookies from '../helpers/cookies'
-import { isFormData } from '../helpers/utils'
+import { isFormData } from '../utils'
 
 export default function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {

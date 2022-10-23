@@ -1,4 +1,4 @@
-import { isObject, isDate } from './utils'
+import { isObject, isDate } from '../utils'
 
 interface IOriginURL {
   protocol: string,
