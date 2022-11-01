@@ -30,7 +30,7 @@ export function processHeaders(headers: any, data: any): any {
 }
 
 // 解析响应头
-export function parseResponseHeaders(header: string): any {
+export function parseResponseHeaders(header: string | null): any {
   if (header) {
     const parsedHeader = Object.create(null)
 
@@ -38,7 +38,7 @@ export function parseResponseHeaders(header: string): any {
     for (const headerItem of headerList) {
       if (headerItem.trim()) {
         const [key, value] = headerItem.trim().split(': ')
-        parsedHeader[key] = value
+        parsedHeader[key.toLowerCase()] = value
       }
     }
 
@@ -49,6 +49,8 @@ export function parseResponseHeaders(header: string): any {
 }
 
 export function flatHeaders(headers: any, method: MethodType) {
+  if (!headers) return headers
+
   const flatedHeaders = deepMerge(
     headers.common || {},
     headers[method] || {},
