@@ -26,7 +26,11 @@ const config: Config = {
   "collectCoverageFrom": [
     "src/*.{js,ts}",
     "src/**/*.{js,ts}"
-  ]
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/test/boot.ts"
+  ],
+  "testRunner": "jest-jasmine2"
 }
 
 export default config
