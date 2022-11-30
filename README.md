@@ -291,3 +291,4 @@ indicates whether or not cross-site Access-Control requests should be made using
 
 ## test
 - jest
+- jasmine-ajax
