@@ -9,7 +9,9 @@ export default function dispatchRequest(config: IAxiosRequestConfig): IAxiosProm
   throwIfCancellationRequested(config)
   processConfig(config)
   return xhr(config).then((res: IAxiosResponse) => {
-    return transformData.call(config, res.data, config.transformResponse!)
+    res.data = transformData.call(config, res.data, config.transformResponse!)
+
+    return res
   })
 }
 
