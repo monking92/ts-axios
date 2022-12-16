@@ -10,7 +10,7 @@ const defaults: IAxiosRequestConfig = {
     }
   },
 
-  method: 'get',
+  // method: 'get',
 
   xsrfCookieName: 'XSRF-TOKEN',
 

@@ -7,15 +7,15 @@ function defaultStrategy(val1: any, val2: any) {
 
 function fromValue2Strategy(val1: any, val2: any) {
   if (!isUndefined(val2)) {
-    return val2;
+    return val2
   }
 }
 
 function defaultToValue2Strategy(val1: any, val2: any) {
   if (!isUndefined(val2)) {
-    return val2;
+    return val2
   } else if (!isUndefined(val1)) {
-    return val1;
+    return val1
   }
 }
 
@@ -57,7 +57,10 @@ export default function mergeConfig(config1: IAxiosRequestConfig, config2?: IAxi
 
   const mergeField = function(key: string): void {
     const strategy = strategies[key] || defaultStrategy
-    config[key] = strategy(config1[key], config2![key])
+    const mergedValue = strategy(config1[key], config2![key])
+    if (!isUndefined(mergedValue)) {
+      config[key] = mergedValue
+    }
   }
 
   for (let key in config2) {
