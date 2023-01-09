@@ -4,7 +4,7 @@ export default function transformData(this: IAxiosRequestConfig, data: any, fns:
   if (!Array.isArray(fns)) fns = [fns]
 
   fns.forEach(fn => {
-    data = fn && fn.call(this, data)
+    data = fn && fn.call(this, data, this.headers)
   })
 
   return data

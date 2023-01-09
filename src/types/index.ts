@@ -10,7 +10,7 @@ export type MethodType =
   | 'options' | 'OPTIONS'
 
 export interface IAxiosTransformerFn {
-  (this: IAxiosRequestConfig, data: any): any
+  (this: IAxiosRequestConfig, data: any, headers?: any): any
 }
 
 export interface IAxiosRequestConfig {
