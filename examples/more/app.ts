@@ -22,6 +22,21 @@ axios({
   }
 })
 
+// 跨域 不发送 options 预检请求场景
+axios({
+  url: 'http://localhost:7001/more/credentials',
+  method: 'post',
+  // withCredentials: true,
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded',
+    // 'custome-header': 'sun'
+  },
+  data: {
+    method: 'post',
+    cors: true
+  }
+})
+
 axios({
   url: 'http://localhost:7001/more/credentials',
   method: 'get',
