@@ -1,13 +1,5 @@
 import axios, { IAxiosResponse, IAxiosError } from '../src'
-
-function getAjaxRequest(): Promise<JasmineAjaxRequest> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const request = jasmine.Ajax.requests.mostRecent()
-      resolve(request)
-    })
-  })
-}
+import { getAjaxRequest } from './_helpers'
 
 describe('request', () => {
   beforeEach(() => {
