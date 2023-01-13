@@ -31,7 +31,7 @@ const defaults: IAxiosRequestConfig = {
   }],
 
   transformResponse: [function transformResponse(data) {
-    if (typeof data === 'string') {
+    if (typeof data === 'string' && this.responseType !== 'text') {
       try {
         data = JSON.parse(data)
       } catch (e) {
