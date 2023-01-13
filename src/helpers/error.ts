@@ -7,6 +7,7 @@ class AxiosError extends Error {
   request?: XMLHttpRequest
   response?: IAxiosResponse
 
+  /* istanbul ignore next */
   constructor(
     message: string,
     config: IAxiosRequestConfig,
